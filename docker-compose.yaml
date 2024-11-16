@@ -1,19 +1,16 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:15  
-    container_name: newcontainer  
-    restart: always  # Restart policy
+  age:
+    image: apache/age                       # Use the Apache AGE image
+    container_name: age                      # Name of the container
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}                  # Set PostgreSQL password
+      POSTGRES_DB: data                      # Set default database name
     ports:
-      - "5432:5432"
+      - "5432:5432"                          # Map port 5432 on host to container
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init-pgvector.sql:/docker-entrypoint-initdb.d/init-pgvector.sql  # Initialization script for pgvector
+      - apache:/var/lib/postgresql/data      # Persist data in a Docker volume
 
 volumes:
-  postgres_data:
+  apache:

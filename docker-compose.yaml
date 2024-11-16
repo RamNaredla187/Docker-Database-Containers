@@ -1,0 +1,16 @@
+version: '3.8'  # Specify the version of Docker Compose
+
+services:
+  my1:
+    image: mysql:8.0  # Use the MySQL image version 8.0
+    container_name: my1  # Name of the container
+    ports:
+      - "3306:3306"  # Map port 3306 on the host to port 3306 on the container
+    volumes:
+      - ram:/var/lib/mysql  # Use a named volume 'ram' for MySQL data persistence
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # Set the root password for MySQL
+      MYSQL_DATABASE: my_database  # Create a database named 'my_database'
+
+volumes:
+  ram:  # Define the named volume 'ram'
